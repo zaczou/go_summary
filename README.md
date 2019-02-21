@@ -1,4 +1,13 @@
 # go_summary
+
+## 命名规范
+### 骆驼命名法
+Go语言应该使用 MixedCase(不要使用 names_with_underscores)
+首字母缩写词都应该用大写,譬如ServeHTTP、sceneID、CIDRProcessor。
+
+
+
+
 ```go
 package main
 import "fmt"
@@ -76,7 +85,135 @@ func main() {
 ```
 map 之间不能使用 == 操作符判断，== 只能用来检查 map 是否为 nil
 
+## 函数
+### 多返回值
+```go
+package main
+import (
+    "fmt"
+)
 
+func rectProps(length, width float64)(float64, float64) {
+    var area = length * width
+    var perimeter = (length + width) * 2
+    return area perimeter
+}
+
+func main() {
+    area, perimeter := rectProps(10.8, 5.6)
+    fmt.Prinf()
+}
+```
+### 命名返回值
+```go
+func rectProps(length, width float64)(area, perimeter float64) {
+    var area = length * width
+    var perimeter = (length + width) * 2
+    return // 不需要明确指定返回值，默认返回area, perimeter的值
+}
+### 空白符
+```go
+func main() {
+    area, _ := rectProps(10.8, 5.6) // 返回值周长被丢弃
+    fmt.Printf()
+}
+```
+
+## 方法
+### 创建方法
+```go
+func (t Type) methodname(parameter list) {
+}
+```
+### 示例
+```go
+package main
+
+import (
+    "fmt"
+    "math" // 小括号，没有逗号
+)
+
+type Rectangle struct {
+    length float64
+    width  float64
+}
+
+type Circle struct {
+    radius float64
+}
+
+func (r Rectangle) Area() float64 {
+    return r.length * r.width
+}
+
+func (c Circle) Area() float64 {
+    return math.Pi * c.radius * c.radius
+}
+
+func main() {
+    r := Rectangle{
+         length: 10,
+	 width:  5,
+    } // 大括号，冒号，有逗号
+	 
+    fmt.Printf("Area of rectangle %d\n", r.Area())
+    
+    c := Circle{
+         radius: 12,
+    }
+    fmt.Println()
+}
+```
+
+### 指针接收器
+```go
+package main
+
+import (
+    "fmt"
+)
+
+type Employee struct {
+    name string
+    age  int
+}
+
+/*
+使用值接收器的方法。
+*/
+func (e Employee) changeName(newName string) {
+    e.name = newName
+} 
+
+// 使用指针接收器的方法
+func (e *Employee) changeAge(newAge int) {
+    e.age = newAge
+}
+
+func main() {
+    e := Employee{
+        name: "zy",
+	age:  27,
+    }
+    fmt.Printf("Employee name before change: %s", e.name)
+    e.changeName("zouyang")
+    fmt.Printf("\nEmployee name after change: %s", e.name)
+
+    fmt.Printf("\n\nEmployee age before change: %d", e.age)
+    (&e).changeAge(26) // 与e.changeAge(51)作用相同
+    fmt.Printf("\nEmployee age after change: %d", e.age)
+}
+
+/*
+Employee name before change: zy
+Employee name after change: zy
+
+Employee age before change: 27
+Employee age after change: 26
+/*
+
+```
 
 
 
