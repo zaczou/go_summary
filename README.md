@@ -6,39 +6,37 @@ Go语言应该使用 MixedCase(不要使用 names_with_underscores)
 首字母缩写词都应该用大写,譬如ServeHTTP、sceneID、CIDRProcessor。
 
 
-
-
 ```go
 package main
-import "fmt"
+import (
+    "fmt"
+)
 ```
-
+```go
 声明：var a [3]int
 声明初始化：var a [3]int = [3]int{1, 2, 3}
 var a = [3]int{1, 2, 3}
 var a  = [3]int{1, 2, 3}
 var a = [...]int{1, 2, 3}
-
 函数体：
    a := [3]int{1, 2, 3}
 
  for range 遍历
  for i, v := range a {
  }
- 
+ ```
  
 ## 切片
-var a [5]int = [5]int{23, 45, 21, 65, 43}
-var b []int = a[1:4] 切片
-var c = []int{6, 7, 8}
-
-make创建切片
-make([]type, len, cap)
+```
+var a [5]int = [5]int{23, 45, 21, 65, 43}  //创建数组
+var b []int = a[1:4] // 切片
+var c = []int{6, 7, 8}  //直接创建切片
+d := make([]type, len, cap)  //make创建切片
 func main() {
 	i := make([]int, 5, 5)
 	fmt.Println(i)
 }
-
+```
 
 ## map
 ```go
@@ -51,13 +49,13 @@ func main(){
 
 func main() {
 	personSalary := map[string]int {
-	    "zy": 1000
-		"yz": 2000
+	    "zy": 1000,
+	    "yz": 2000,  // 记得有逗号
 	}
 	personSalary["mike"] = 3000
 	employee := "zy"
 	newEmp := "joe"
-	value, ok := map[newEmp]
+	value, ok := map[newEmp] 
 	if ok == true {
 	    fmt.Println
 	} else {
